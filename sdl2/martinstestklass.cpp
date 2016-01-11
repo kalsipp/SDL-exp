@@ -40,7 +40,7 @@
 
 
 			//render();
-			//g.update();
+			//g.update(); 
 			}
 			SDL_StopTextInput();
 		//}
