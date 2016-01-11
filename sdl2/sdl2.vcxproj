@@ -69,14 +69,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\includes\SDL2-2.0.4\include;C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\includes\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\src\header;C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\includes\SDL2-2.0.4\include;C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\includes\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\includes\SDL2-2.0.4\lib\x86;C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\includes\SDL2_image-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryWPath>C:\Users\Martin\Documents\Visual Studio 2015\Projects\sdl2\sdl2\src\source;$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -124,13 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="logger.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="martinstestklass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="martinstestklass.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\source\logger.cpp" />
+    <ClCompile Include="src\source\main.cpp" />
+    <ClCompile Include="src\source\martinstestklass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
