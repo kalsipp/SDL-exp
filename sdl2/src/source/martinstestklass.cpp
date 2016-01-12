@@ -6,7 +6,7 @@
 		SDL_StartTextInput();
 		Texture texture(m_sdl_renderer);
 		assert(texture.load_from_file("media\\test.png"));
-
+		int x = 0; int y = 0;
 
 		while(running){
 
@@ -18,20 +18,18 @@
 					break; 
 
 					case SDL_TEXTINPUT:
-					int x = 0, y = 0;
-					    SDL_GetMouseState(&x, &y); //doesn't use this atm contains mousepos
-
-
+					     //doesn't use this atm contains mousepos
 					    if(events.text.text[0] == 'q'){
 					    	running = false;
 					    }
 					}
 				}
-			SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(m_sdl_renderer);
+				SDL_GetMouseState(&x, &y);
+				SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_RenderClear(m_sdl_renderer);
 			//SDL_Rect fillrect = { m_screen_width / 4, m_screen_height / 4, m_screen_width / 2, m_screen_height / 2 };
-			texture.render(30, 30);
-			SDL_RenderPresent(m_sdl_renderer);
+				texture.render(x - texture.get_width()/2, y - texture.get_height()/2);
+				SDL_RenderPresent(m_sdl_renderer);
 			}
 			SDL_StopTextInput();
 		}
