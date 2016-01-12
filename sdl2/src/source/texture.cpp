@@ -1,5 +1,5 @@
 #include "texture.hpp"
-
+#include <cassert>
 Texture::Texture(SDL_Renderer * rend) {
 	m_log = new Logger(m_logfile_name);
 	m_log->log("Texture constructed");
@@ -7,6 +7,7 @@ Texture::Texture(SDL_Renderer * rend) {
 }
 Texture::~Texture() {
 	free();
+	TTF_CloseFont(m_font);
 }
 
 bool Texture::load_from_file(std::string path) {
@@ -34,6 +35,27 @@ bool Texture::load_from_file(std::string path) {
 
 		SDL_FreeSurface(loaded_surface);
 		m_texture = new_texture;
+	}
+	return m_texture != nullptr;
+}
+
+bool Texture::load_from_rendered_text(std::string texture_text, SDL_Color text_color) {
+	free();
+
+	SDL_Surface * textsurface = TTF_RenderText_Solid(m_font, texture_text.c_str(), text_color);
+	if (textsurface == nullptr) {
+		m_log->log("Unable to render text surface! SDL_ttf Error: " + std::string(TTF_GetError()));
+	}
+	else {
+		m_texture = SDL_CreateTextureFromSurface(m_sdl_renderer, textsurface);
+		if (m_texture == nullptr) {
+			m_log->log("Unable to create texture from rendered text! SDL Error: " + std::string(SDL_GetError()));
+		}
+		else {
+			m_width = textsurface->w;
+			m_height = textsurface->h;
+		}
+		SDL_FreeSurface(textsurface);
 	}
 	return m_texture != nullptr;
 }
@@ -74,4 +96,15 @@ void Texture::set_alpha(Uint8 alpha) {
 }
 void Texture::set_blendmode(SDL_BlendMode blending) {
 	SDL_SetTextureBlendMode(m_texture, blending);
+}
+void Texture::set_font(std::string path) {
+	if (m_font != nullptr) {
+		TTF_CloseFont(m_font);
+		m_font = nullptr;
+	}
+	m_font = TTF_OpenFont(("fonts\\" + path).c_str(), 28);
+	if (m_font == nullptr)
+	{
+		m_log->log("Failed to load lazy font! SDL_ttf Error: " + std::string(TTF_GetError()));
+	}
 }

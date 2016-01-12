@@ -6,11 +6,19 @@
 		SDL_StartTextInput();
 		Texture texture(m_sdl_renderer);
 		assert(texture.load_from_file("media\\test.png"));
+		Texture illuminati(m_sdl_renderer);
+		assert(illuminati.load_from_file("media\\illuminati.png"));
+
+		Texture text(m_sdl_renderer);
+		SDL_Color col = { 0,0,0 };
+		text.set_font("ARIALUNI.TTF");
+		assert(text.load_from_rendered_text("Hello world", col));
 		texture.set_blendmode(SDL_BLENDMODE_BLEND);
+		illuminati.set_blendmode(SDL_BLENDMODE_BLEND);
+		text.set_blendmode(SDL_BLENDMODE_BLEND);
 		int x = 0; int y = 0;
-
+		int counter = 0;
 		while(running){
-
 			while(SDL_PollEvent(&events) != 0){ 
 				switch(events.type){
 
@@ -30,7 +38,13 @@
 				SDL_Rect clipper = { 10, 10, 200, 200 };
 				texture.set_alpha(x);
 				texture.set_color(x, y, x);
+				illuminati.render(40, 40);
+
 				texture.render(x - texture.get_width()/2, y - texture.get_height()/2, &clipper);
+				counter++;
+				text.load_from_rendered_text("Hello world: " + std::to_string(counter), col);
+				text.render(50, 50);
+
 				SDL_RenderPresent(m_sdl_renderer);
 			}
 			SDL_StopTextInput();
@@ -48,6 +62,7 @@
 		}
 
 		void Martinstestklass::load_texture(SDL_Texture *& text, std::string path) {
+			m_log->log("Loading texture " + path);
 			text = nullptr;
 			SDL_Surface * loaded = IMG_Load(path.c_str());
 			if (loaded == nullptr) {
@@ -63,7 +78,7 @@
 		}
 
 		void Martinstestklass::load_image(SDL_Surface *& surf, std::string path){
-			
+			m_log->log("Loading image " + path);
 			SDL_Surface * loaded = IMG_Load(path.c_str());
 			if(loaded == nullptr){
 				m_log->log( "Unable to load image to surface "+path+" SDL Error: " + SDL_GetError() );
@@ -143,7 +158,7 @@
 					}
 					m_sdl_surface = SDL_GetWindowSurface(m_sdl_window);
 
-					m_sdl_renderer = SDL_CreateRenderer(m_sdl_window, -1, SDL_RENDERER_ACCELERATED);
+					m_sdl_renderer = SDL_CreateRenderer(m_sdl_window, -1, SDL_RENDERER_ACCELERATED );
 					if(m_sdl_renderer == nullptr){
 						m_log->log("Renderer could not be created! SDL Error: " + std::string(SDL_GetError()) );
 						success = false;
@@ -154,10 +169,17 @@
 							m_log->log("SDL_image could not initialize! SDL_image Error: " + std::string(IMG_GetError()) );
 							success = false;
 						}
+						if (TTF_Init() == -1)
+						{
+							m_log->log("SDL_ttf could not initialize! SDL_ttf Error: " + std::string(TTF_GetError()));
+							success = false;
+						}
 					}
 
 				}
 			}
+		
+
 			m_log->log("Done initializing of " + m_window_name);
 			return success;
 		}
@@ -168,6 +190,8 @@
 			SDL_DestroyWindow(m_sdl_window);
 			SDL_Quit();
 			IMG_Quit();
+			TTF_Quit();
+
 		}
 		
 		bool Martinstestklass::init_gl(){
