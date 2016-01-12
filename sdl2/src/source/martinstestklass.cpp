@@ -6,6 +6,7 @@
 		SDL_StartTextInput();
 		Texture texture(m_sdl_renderer);
 		assert(texture.load_from_file("media\\test.png"));
+		texture.set_blendmode(SDL_BLENDMODE_BLEND);
 		int x = 0; int y = 0;
 
 		while(running){
@@ -18,7 +19,6 @@
 					break; 
 
 					case SDL_TEXTINPUT:
-					     //doesn't use this atm contains mousepos
 					    if(events.text.text[0] == 'q'){
 					    	running = false;
 					    }
@@ -27,8 +27,10 @@
 				SDL_GetMouseState(&x, &y);
 				SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(m_sdl_renderer);
-			//SDL_Rect fillrect = { m_screen_width / 4, m_screen_height / 4, m_screen_width / 2, m_screen_height / 2 };
-				texture.render(x - texture.get_width()/2, y - texture.get_height()/2);
+				SDL_Rect clipper = { 10, 10, 200, 200 };
+				texture.set_alpha(x);
+				texture.set_color(x, y, x);
+				texture.render(x - texture.get_width()/2, y - texture.get_height()/2, &clipper);
 				SDL_RenderPresent(m_sdl_renderer);
 			}
 			SDL_StopTextInput();
