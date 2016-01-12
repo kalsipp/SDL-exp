@@ -1,4 +1,4 @@
-0.000471s: Initializing of Martins testfonster
-0.279232s: Done initializing of Martins testfonster
-0.281705s: Loading of media/test.png successful
-1.1631s: Running destructor of Martins testfonster
+0.0004422s: Initializing of Martins testfonster
+0.143622s: Done initializing of Martins testfonster
+0.146103s: Loading of media/test.png successful
+0.975132s: Running destructor of Martins testfonster
