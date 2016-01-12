@@ -1,4 +1,3 @@
-0.0004422s: Initializing of Martins testfonster
-0.143622s: Done initializing of Martins testfonster
-0.146103s: Loading of media/test.png successful
-0.975132s: Running destructor of Martins testfonster
+0.0002516s: Texture constructed
+0.0006267s: Loading new texture from file
+3.48975s: Unloading all components Martins testfonster

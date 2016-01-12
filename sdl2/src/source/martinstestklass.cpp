@@ -1,23 +1,13 @@
 #include "martinstestklass.hpp"
-/*
-//Temp Getting image to show
-	pelle  = SDL_LoadBMP("media/test.bmp");
-	if(pelle == nullptr) assert(false);
-	pelle = SDL_ConvertSurface(pelle, m_sdl_surface->format, 0);
-	SDL_BlitSurface( pelle, NULL, m_sdl_surface, NULL );
-	SDL_UpdateWindowSurface(m_sdl_window);
-*/
+
 	void Martinstestklass::run(){
-		//if(m_successful_init){
 		bool running = true;
 		SDL_Event events;
 		SDL_StartTextInput();
+		Texture texture(m_sdl_renderer);
+		assert(texture.load_from_file("media\\test.png"));
 
-		SDL_Surface * image = nullptr;
-		load_image(image, "media/test.png");
-		assert(image != nullptr);
-		SDL_BlitSurface(image, 0, m_sdl_surface, 0);
-		SDL_UpdateWindowSurface(m_sdl_window);
+
 		while(running){
 
 			while(SDL_PollEvent(&events) != 0){ 
@@ -37,26 +27,46 @@
 					    }
 					}
 				}
-
-
-			//render();
-			//g.update(); 
+			SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_RenderClear(m_sdl_renderer);
+			//SDL_Rect fillrect = { m_screen_width / 4, m_screen_height / 4, m_screen_width / 2, m_screen_height / 2 };
+			texture.render(30, 30);
+			SDL_RenderPresent(m_sdl_renderer);
 			}
 			SDL_StopTextInput();
-		//}
 		}
 
 		void Martinstestklass::render(){
-
+			/*
+			SDL_RenderClear(m_sdl_renderer);
+			SDL_RenderCopy(m_sdl_renderer, image, 0, 0);
+			SDL_RenderPresent(m_sdl_renderer);
+			*/
 		}
 		void Martinstestklass::renderingtest(){
 
 		}
+
+		void Martinstestklass::load_texture(SDL_Texture *& text, std::string path) {
+			text = nullptr;
+			SDL_Surface * loaded = IMG_Load(path.c_str());
+			if (loaded == nullptr) {
+				m_log->log("Unable to load image " + path + " SDL Error: " + SDL_GetError() + " (texture)");
+			}
+			else {
+				text = SDL_CreateTextureFromSurface(m_sdl_renderer, loaded);
+				if (text == nullptr) {
+					m_log->log("Unable to create texture from " + path + "! SDL Error: " + SDL_GetError());
+				}
+				SDL_FreeSurface(loaded);
+			}
+		}
+
 		void Martinstestklass::load_image(SDL_Surface *& surf, std::string path){
 			
 			SDL_Surface * loaded = IMG_Load(path.c_str());
 			if(loaded == nullptr){
-				m_log->log( "Unable to load image "+path+" SDL Error: " + SDL_GetError() );
+				m_log->log( "Unable to load image to surface "+path+" SDL Error: " + SDL_GetError() );
 			}else{
 				surf = SDL_ConvertSurface(loaded, m_sdl_surface->format, 0);
 				if(surf == nullptr){
@@ -97,12 +107,18 @@
 				m_log->log( "SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()) );
 				success = false;
 			}else{
+
+				if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+				{
+					m_log->log("Warning: Linear texture filtering not enabled!");
+				}
+
 				m_sdl_window = SDL_CreateWindow(
-					m_window_name.c_str(), 
-					SDL_WINDOWPOS_UNDEFINED, 
+					m_window_name.c_str(),
 					SDL_WINDOWPOS_UNDEFINED,
-					m_screen_width, 
-					m_screen_height, 
+					SDL_WINDOWPOS_UNDEFINED,
+					m_screen_width,
+					m_screen_height,
 					SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 				if(m_sdl_window  == nullptr){
 					m_log->log( "SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()) );
@@ -117,11 +133,12 @@
 							m_log->log("Warning: Unable to set VSync! SDL Error: " + std::string(SDL_GetError()) );
 							success = false;
 						}
-						
+						/*
 						if(!init_gl()){
 							m_log->log("Unable to initialize OpenGL!");
 							success = false;
 						}
+						*/
 						
 					}
 					m_sdl_surface = SDL_GetWindowSurface(m_sdl_window);
@@ -146,9 +163,11 @@
 		}
 
 		void Martinstestklass::unload(){
-			m_log->log("Running destructor of " + m_window_name);
+			m_log->log("Unloading all components " + m_window_name);
+			SDL_DestroyRenderer(m_sdl_renderer);
 			SDL_DestroyWindow(m_sdl_window);
 			SDL_Quit();
+			IMG_Quit();
 		}
 		
 		bool Martinstestklass::init_gl(){

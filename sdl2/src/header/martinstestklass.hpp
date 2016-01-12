@@ -7,6 +7,7 @@
 #include <iostream> 
 
 #include "logger.hpp"
+#include "texture.hpp"
 class Martinstestklass{
 public:
 	Martinstestklass();
@@ -17,6 +18,7 @@ public:
 	void run();
 	void render();
 	void load_image(SDL_Surface *& surf, std::string path);
+	void load_texture(SDL_Texture *& text, std::string path);
 	void renderingtest();
 	bool m_successful_init = true;
 	int m_screen_width = 640;

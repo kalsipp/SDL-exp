@@ -24,12 +24,18 @@
     <ClCompile Include="src\source\martinstestklass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\source\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\header\logger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\header\martinstestklass.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\header\texture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
