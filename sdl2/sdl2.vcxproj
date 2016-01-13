@@ -129,12 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\source\gameobject.cpp" />
     <ClCompile Include="src\source\logger.cpp" />
     <ClCompile Include="src\source\main.cpp" />
     <ClCompile Include="src\source\martinstestklass.cpp" />
     <ClCompile Include="src\source\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\header\gameobject.hpp" />
     <ClInclude Include="src\header\logger.hpp" />
     <ClInclude Include="src\header\martinstestklass.hpp" />
     <ClInclude Include="src\header\texture.hpp" />

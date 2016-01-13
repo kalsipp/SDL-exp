@@ -8,13 +8,13 @@ class Texture {
 public:
 	Texture(SDL_Renderer *);
 	~Texture();
-	bool load_from_file(std::string path);
-	bool load_from_rendered_text(std::string texture_text, SDL_Color text_color);
+	bool load_from_file(const std::string & path);
+	bool load_from_rendered_text(const std::string & texture_text, SDL_Color text_color);
 	void free();
 	void render(int x, int y, SDL_Rect * clip = nullptr);
 	void set_color(Uint8 red, Uint8 green, Uint8 blue);
 	void set_blendmode(SDL_BlendMode blending);
-	void set_font(std::string path);
+	void set_font(const std::string & path);
 	void set_alpha(Uint8 alpha);
 	int get_width();
 	int get_height();

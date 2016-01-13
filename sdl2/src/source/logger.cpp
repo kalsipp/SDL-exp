@@ -2,7 +2,7 @@
 
 
 
-Logger::Logger(std::string filename){
+Logger::Logger(const std::string & filename){
 
 	m_start_time = std::chrono::system_clock::now();
 
@@ -11,7 +11,7 @@ Logger::Logger(std::string filename){
 
 }
 
-void Logger::log(std::string message){
+void Logger::log(const std::string & message){
 
 	std::chrono::duration<double> duration = std::chrono::system_clock::now() - m_start_time;
 	std::ofstream file;

@@ -1,2 +1,2 @@
-0.0003472s: Texture constructed
-126.787s: Unloading all components Martins testfonster
+0.0003387s: Texture constructed
+1.74872s: Unloading all components Martins testfonster
