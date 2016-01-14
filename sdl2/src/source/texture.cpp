@@ -11,7 +11,7 @@ Texture::~Texture() {
 }
 
 bool Texture::load_from_file(const std::string & path) {
-	m_log->log("Loading new texture from file");
+	m_log->log("Loading new texture from file"); 
 	free();
 	SDL_Texture * new_texture = nullptr;
 	SDL_Surface * loaded_surface = IMG_Load(path.c_str());
