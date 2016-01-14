@@ -14,7 +14,7 @@ bool Texture::load_from_file(const std::string & path) {
 	m_log->log("Loading new texture from file"); 
 	free();
 	SDL_Texture * new_texture = nullptr;
-	SDL_Surface * loaded_surface = IMG_Load(path.c_str());
+	SDL_Surface * loaded_surface = IMG_Load(path.c_str()); 
 	if (loaded_surface == nullptr) {
 		m_log->log("Unable to load image " + path + " SDL Error: " + SDL_GetError() + " (texture)"); 
 	}
