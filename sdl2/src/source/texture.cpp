@@ -16,7 +16,7 @@ bool Texture::load_from_file(const std::string & path) {
 	SDL_Texture * new_texture = nullptr;
 	SDL_Surface * loaded_surface = IMG_Load(path.c_str());
 	if (loaded_surface == nullptr) {
-		m_log->log("Unable to load image " + path + " SDL Error: " + SDL_GetError() + " (texture)");
+		m_log->log("Unable to load image " + path + " SDL Error: " + SDL_GetError() + " (texture)"); 
 	}
 	else {
 		//SDL_SetColorKey()
