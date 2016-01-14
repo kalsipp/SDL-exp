@@ -10,7 +10,7 @@ Texture::~Texture() {
 	TTF_CloseFont(m_font);
 }
 
-bool Texture::load_from_file(std::string path) {
+bool Texture::load_from_file(const std::string & path) {
 	m_log->log("Loading new texture from file");
 	free();
 	SDL_Texture * new_texture = nullptr;
@@ -39,7 +39,7 @@ bool Texture::load_from_file(std::string path) {
 	return m_texture != nullptr;
 }
 
-bool Texture::load_from_rendered_text(std::string texture_text, SDL_Color text_color) {
+bool Texture::load_from_rendered_text(const std::string & texture_text, SDL_Color text_color) {
 	free();
 
 	SDL_Surface * textsurface = TTF_RenderText_Solid(m_font, texture_text.c_str(), text_color);
@@ -97,7 +97,7 @@ void Texture::set_alpha(Uint8 alpha) {
 void Texture::set_blendmode(SDL_BlendMode blending) {
 	SDL_SetTextureBlendMode(m_texture, blending);
 }
-void Texture::set_font(std::string path) {
+void Texture::set_font(const std::string & path) {
 	if (m_font != nullptr) {
 		TTF_CloseFont(m_font);
 		m_font = nullptr;

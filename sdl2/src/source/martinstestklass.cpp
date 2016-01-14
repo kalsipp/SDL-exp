@@ -158,7 +158,7 @@
 					}
 					m_sdl_surface = SDL_GetWindowSurface(m_sdl_window);
 
-					m_sdl_renderer = SDL_CreateRenderer(m_sdl_window, -1, SDL_RENDERER_ACCELERATED );
+					m_sdl_renderer = SDL_CreateRenderer(m_sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 					if(m_sdl_renderer == nullptr){
 						m_log->log("Renderer could not be created! SDL Error: " + std::string(SDL_GetError()) );
 						success = false;
