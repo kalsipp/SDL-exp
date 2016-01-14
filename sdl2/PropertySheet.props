@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(ProjectDir)includes\SDL2-2.0.4\include;$(ProjectDir)includes\SDL2_ttf-2.0.13\include;$(ProjectDir)includes\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src\header;$(ProjectDir)includes\SDL2-2.0.4\include;$(ProjectDir)includes\SDL2_ttf-2.0.13\include;$(ProjectDir)includes\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)includes\SDL2_image-2.0.1\lib\x86;$(ProjectDir)includes\SDL2_ttf-2.0.13\lib\x86;$(ProjectDir)includes\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup />
